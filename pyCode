@@ -1,0 +1,78 @@
+import serial
+import time
+
+ser = serial.Serial('COM11', 9600)
+
+dct = {'sl': 'A',
+       'lsss': 'B',
+       'lsls': 'C',
+       'lss': 'D',
+       's': 'E',
+       'ssls': 'F',
+       'lls': 'G',
+       'ssss': 'H',
+       'ss': 'I',
+       'slll': 'J',
+       'lsl': 'K',
+       'slss': 'L',
+       'll': 'M',
+       'ls': 'N',
+       'lll': 'O',
+       'slls': 'P',
+       'llsl': 'Q',
+       'sls': 'R',
+       'sss': 'S',
+       'l': 'T',
+       'ssl': 'U',
+       'sssl': 'V',
+       'sll': 'W',
+       'lssl': 'X',
+       'lsll': 'Y',
+       'llss': 'Z'}
+
+dct2 = {'A': 'sl',
+       'B': 'lsss',
+       'C': 'lsls',
+       'D': 'lss',
+       'E': 's',
+       'F': 'ssls',
+       'G': 'lls',
+       'H': 'ssss',
+       'I': 'ss',
+       'J': 'slll',
+       'K': 'lsl',
+       'L': 'slss',
+       'M': 'll',
+       'N': 'ls',
+       'O': 'lll',
+       'P': 'slls',
+       'Q': 'llsl',
+       'R': 'sls',
+       'S': 'sss',
+       'T': 'l',
+       'U': 'ssl',
+       'V': 'sssl',
+       'W': 'sll',
+       'X': 'lssl',
+       'Y': 'lsll',
+       'Z': 'llss'}
+
+
+def start_interactive_mode(ser):
+    str = ''
+    while True:
+        while ser.in_waiting:
+            
+            line = ser.read()
+            line = line.decode('utf8')
+            #line = line.strip()
+            #print(line)
+            if line == 'p' or line == '':
+                if str != '':
+                    #print(str)
+                    print(dct.get(str))
+                str = ''
+            else:
+                str += line
+                
+start_interactive_mode(ser)
